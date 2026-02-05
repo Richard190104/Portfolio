@@ -1,0 +1,61 @@
+[
+    {
+        "title": "Registration System",
+        "description": "A web application for user registration for date of tests.",
+        "project": "",
+        "moreDetails": ["I created a registration system for bachelor project, that allows users to sign up for test dates efficiently. The system includes features such as email confirmation, date selection, and admin management.", "System performs date calculations to automatically filter second dates to be exactly 8 days after first one according to the regulations.", "Key element of system is reminder service that sends email reminders to users 3 days before their scheduled test date."],
+        "technologies": ["HTML", "CSS", "JavaScript", "Node.js"],
+        "images": ["/images/registration-system.png", "/images/registration-system2.png"]
+
+    },
+    {
+        "title": "Protep website",
+        "description": "Website for company Protep.",
+        "project": "https://richard190104.github.io/Protep-2.0/",
+        "moreDetails": ["I developed a website for Protep, a company specializing in house cleaning services. The website showcases their services, providing an intuitive user experience and responsive design.", "The site includes sections for service descriptions, pricing, and contact information, making it easy for potential clients to learn about and reach out to the company.", "I utilized HTML, CSS, and JavaScript to create a visually appealing and functional website that effectively represents the company's brand."],
+        "technologies": ["HTML", "CSS", "JavaScript"],
+        "images": []
+    },
+    {
+        "title": "Cesta k poznaniu website",
+        "description": "Website for organization Cesta k poznaniu.",
+        "project": "https://cestakpoznaniu.sk/",
+        "moreDetails": ["I built a website for Cesta k poznaniu, an organization focused on personal development and spiritual growth. The website serves as a platform to share information about their programs, events, and resources.", "The design emphasizes clarity and ease of navigation, allowing visitors to quickly find relevant information and engage with the organization's offerings.", "Technologies used include HTML, CSS, and JavaScript to ensure a responsive and user-friendly experience."],
+        "technologies": ["HTML", "CSS", "JavaScript"],
+        "images": []
+
+    },
+    {
+        "title": "3D chess project",
+        "description": "An online 3D chess game.",
+        "project": "https://richard190104.github.io/chess-website/",
+        "moreDetails": ["I built an online 3D chess game that allows players to compete against computer. The game features a 3D board, interactive pieces and difficulty slider", "This project was developed for unfinished website about custom chess pieces, which was scrapped later. I decided to keep the chess game as a standalone project."],
+        "technologies": ["Three.js"],
+        "images": []
+    },
+    {
+        "title": "Task tracking app",
+        "description": "Application for tracking tasks for teams.",
+        "project": "",
+        "moreDetails": ["One of my recent school projects was developing a mobile task tracking application for teams. The app allows users to create, assign, and monitor tasks in real-time, enhancing team collaboration and productivity."],
+        "technologies": ["React Native", "Python"],
+        "images": []
+    },
+    {
+        "title": "Chatting application",
+        "description": "Client to client chatting application based on updated UDP protocol.",
+        "project": "https://example.com/project-five",
+        "moreDetails": ["I developed a client-to-client chatting application using an enhanced UDP protocol to ensure reliable message delivery by adding TCP features. The application supports real-time communication with features like message acknowledgment, retransmission of lost packets, Keep-alive messages or Three-way handshake."],
+        "technologies": ["React", "CSS", "JavaScript"],
+        "images": ["chatting-app1.png", "chatting-app2.png"]
+    },
+    {
+        "title": "Personal Portfolio",
+        "description": "A personal portfolio website to showcase my projects and skills.",
+        "project": "",
+        "moreDetails": ["I created a personal portfolio website to showcase my projects, skills, and experience. The website features a clean and modern design, with sections for project descriptions, technologies used, and contact information.", "The portfolio is built using React for a dynamic and responsive user experience, allowing visitors to easily navigate through my work and learn more about my background."],
+        "technologies": ["React", "CSS", "JavaScript"],
+        "images": []
+    }
+
+]

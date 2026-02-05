@@ -1,0 +1,151 @@
+.project-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 20, 22, 0.26);
+    padding: 0.2rem 0.2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 80%;
+    cursor: pointer;
+    border-bottom: 2px solid var(--aqua-color);
+}
+
+
+.project-box h3 {
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 0.5rem 0;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    width: 25%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    position: relative;
+}
+
+.project-box p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 0;
+    flex-grow: 1;
+    transition: all 0.3s ease;
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    margin-left: 2%;
+}
+
+.project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: relative;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.3s ease;
+    width: 30%;
+    margin-left: 2%;
+}
+
+.tech-tag {
+    padding: 0.35rem 0.85rem;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    font-size: 0.85rem;
+    color: #00e5ff;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+}
+
+.tech-tag:hover {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: rgba(0, 229, 255, 0.5);
+}
+
+.project-box:hover {
+    border-color: rgba(255, 0, 0, 0.5);
+}
+
+
+
+ .project-box:hover p, .project-box:hover .project-technologies {
+    transform: translateX(50px);
+    margin: 2%;
+    
+}
+
+.project-box:hover h3{
+    transform: translateX(5%);
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.project-box:hover .project-technologies {
+    gap: 0.8rem;
+}
+
+
+
+.projects-wrapper {
+    position: relative;
+    overflow: visible;
+    display: flex;
+    height: auto;
+}
+
+.project-list {
+    flex: 1;
+    width: 100%;
+    height: auto !important;
+    transition: all 0.7s ease-in-out;
+ 
+}
+
+.project-list.slide-out {
+    transform: translateX(-150%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.project-list.slide-in {
+    transform: translateX(0%);
+    opacity: 1;
+}
+
+
+
+@keyframes slideFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+}
+
+.project-detail-page.slide-out {
+    animation: slideToRight 1s forwards;
+}
+
+@keyframes slideToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
