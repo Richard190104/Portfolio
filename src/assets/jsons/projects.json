@@ -5,7 +5,7 @@
         "project": "",
         "moreDetails": ["I created a registration system for bachelor project, that allows users to sign up for test dates efficiently. The system includes features such as email confirmation, date selection, and admin management.", "System performs date calculations to automatically filter second dates to be exactly 8 days after first one according to the regulations.", "Key element of system is reminder service that sends email reminders to users 3 days before their scheduled test date."],
         "technologies": ["HTML", "CSS", "JavaScript", "Node.js"],
-        "images": ["/images/registration-system.png", "/images/registration-system2.png"]
+        "images": ["images/registration-system.png", "images/registration-system2.png"]
 
     },
     {

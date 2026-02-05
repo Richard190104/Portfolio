@@ -290,7 +290,7 @@ function App() {
                   <p>{detail}</p>
                   {selectedProject.images[index] != "" && selectedProject.images[index] != null && (
                     <div className="project-images">
-                    <img src={selectedProject.images[index]} alt={selectedProject.title} />
+                    <img src={`${import.meta.env.BASE_URL}${selectedProject.images[index]}`} alt={selectedProject.title} />
                     </div>
                   )}
                   </div>
