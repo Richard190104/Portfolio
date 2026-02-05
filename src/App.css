@@ -331,19 +331,31 @@ html, body {
   .skills-icons {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
+  .iconBox {
+    padding: 1em !important;
+    border-width: 1px !important;
+  }
+  .iconBox i {
+    font-size: 2.2rem !important;
+    margin: 0.6rem !important;
+  }
+  .project-list {
+    width: 80% !important;
+    align-items: center !important;
+  }
   .project-box{
-    width: 100% !important;
+    width: 80% !important;
   }
   .project-container{
     width: 100% !important;
     align-items: center !important;
   }
   .project-box p{
-    font-size: 1rem !important;
-    width:50% !important;
+    font-size: 0.9rem !important;
+    width: 50% !important;
   }
   .project-box h3{
-    font-size: 1.2rem !important;
+    font-size: 1rem !important;
   }
   .project-container{
     margin: 0% !important;
@@ -359,4 +371,16 @@ html, body {
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
+
+  .section-intro{
+    padding: 5%;
+  }
+  .section-intro p{
+    font-size: 2.3rem !important;
+    width: 100% !important;
+  }
+  .icon-box{
+    
+  }
+
 }

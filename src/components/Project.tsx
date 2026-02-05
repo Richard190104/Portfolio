@@ -1,7 +1,7 @@
 import "./Project.css"
 import type ProjectInterface from "../interfaces/ProjectInterface";
 
-export default function Project({title, description, project, moreDetails, Technologies, onSelect}: ProjectInterface) {
+export default function Project({title, description, Technologies, onSelect}: ProjectInterface) {
     function slideContainer() {
         if (onSelect) {
             onSelect();

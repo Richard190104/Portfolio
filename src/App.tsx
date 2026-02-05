@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FiUser } from 'react-icons/fi'
 import AnimatedBackground from './components/AnimatedBackground'
 import "devicon/devicon.min.css";
@@ -155,6 +154,16 @@ function App() {
   const [hoveredBox, setHoveredBox] = useState(-1);
   const [showText, setShowText] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const sectionLeftRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSkillClick = (index: number) => {
+    setHoveredBox(index);
+    setShowText(true);
+
+    if (window.innerWidth <= 768 && sectionLeftRef.current) {
+      sectionLeftRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   
   useEffect(() => {
     if (selectedProject) {
@@ -215,14 +224,14 @@ function App() {
     <>
       <AnimatedBackground />
       <div className="content">
-        <section className="section">
+        <section className="section section-intro">
           <p>Hello, I'm <b>Richard</b>.</p>
           <p>I build modern web applications</p>
           <button>View my work</button>
         </section>
 
         <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: 'auto'}}>
-          <div className="section-left">
+          <div className="section-left" ref={sectionLeftRef}>
             <h2>About Me</h2>
             <FiUser className="profile-icon" />
             <div className={`slideInfoText ${showText ? 'hovered' : ''}`}>
@@ -242,7 +251,7 @@ function App() {
             <h2>My skills</h2>
             <div className="skills-icons">
               {skillsIcons.map((iconClass, index) => (
-                <div className='iconBox loadable' key={index}>
+                <div className='iconBox loadable' key={index} onClick={() => handleSkillClick(index)}>
                 <i key={index} className={iconClass } style={{fontSize: '3rem', margin: '1rem'}}></i>
                 </div>
               ))}
