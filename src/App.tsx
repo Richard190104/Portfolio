@@ -186,7 +186,7 @@ function App() {
         setTimeout(() => {
           box.classList.add('animate');
         }, Math.random() * 4000 + 2000);
-        box.addEventListener('mouseover', () => {
+        box.addEventListener('click', () => {
           setHoveredBox(index);
           setShowText(true);
         });

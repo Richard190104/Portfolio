@@ -78,11 +78,6 @@
 
 
 
- .project-box:hover p, .project-box:hover .project-technologies {
-    transform: translateX(50px);
-    margin: 2%;
-    
-}
 
 .project-box:hover h3{
     transform: translateX(5%);
