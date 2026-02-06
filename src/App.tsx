@@ -204,22 +204,6 @@ function App() {
   }, [selectedProject]);
 
   useEffect(() => {
-    const skillBoxes = document.querySelectorAll('.iconBox');
-      skillBoxes.forEach((box, index) => {
-        setTimeout(() => {
-          box.classList.add('animate');
-        }, Math.random() * 4000 + 2000);
-        box.addEventListener('click', () => {
-          setHoveredBox(index);
-          setShowText(true);
-        });
-        box.addEventListener('mouseout', () => {
-          setShowText(false);
-        });
-      });
-
-      
-
     const loadableElements = document.querySelectorAll('.loadable');
     if (loadableElements.length === 0) return;
 
