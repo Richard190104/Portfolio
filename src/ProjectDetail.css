@@ -14,6 +14,8 @@
     justify-content: flex-start;
     animation: slideFromRight 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     z-index: 10;
     border-left: 1px solid rgba(0, 229, 255, 0.25);
     border-right: 1px solid rgba(0, 229, 255, 0.25);

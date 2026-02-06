@@ -1,12 +1,38 @@
 import { useEffect, useRef, useState } from 'react';
 import { FiUser } from 'react-icons/fi'
 import AnimatedBackground from './components/AnimatedBackground'
+import CursorCircle from './components/CursorCircle'
 import "devicon/devicon.min.css";
 import './App.css'
 import Project from './components/Project';
 import projects from "../src/assets/jsons/projects.json";
 import "./ProjectDetail.css";
+import Lenis from "lenis";
 function App() {
+  const lenisRef = useRef<Lenis | null>(null);
+ 
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 3,
+      smoothWheel: true,
+      wheelMultiplier: 0.8,
+    });
+    lenisRef.current = lenis;
+
+    let rafId = 0;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
   const skillsIcons = [
     "devicon-html5-plain colored",        // HTML/CSS
     "devicon-css3-plain colored",
@@ -155,6 +181,13 @@ function App() {
   const [showText, setShowText] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const sectionLeftRef = useRef<HTMLDivElement | null>(null);
+  const positionTestRef = useRef({
+    enabled: true,
+    targetTop: 160,
+    targetLeft: 140,
+    tolerance: 12,
+  });
+
 
   const handleSkillClick = (index: number) => {
     setHoveredBox(index);
@@ -169,16 +202,42 @@ function App() {
     if (selectedProject) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      lenisRef.current?.stop();
     } else {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      lenisRef.current?.start();
     }
     
     return () => {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      lenisRef.current?.start();
     };
   }, [selectedProject]);
+
+  useEffect(() => {
+    if (!positionTestRef.current.enabled) return;
+
+    const updatePositionTest = () => {
+      const el = sectionLeftRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const { targetTop, targetLeft, tolerance } = positionTestRef.current;
+      const deltaTop = rect.top - targetTop;
+      const deltaLeft = rect.left - targetLeft;
+
+    };
+
+    window.addEventListener('scroll', updatePositionTest, { passive: true });
+    window.addEventListener('resize', updatePositionTest);
+    updatePositionTest();
+
+    return () => {
+      window.removeEventListener('scroll', updatePositionTest);
+      window.removeEventListener('resize', updatePositionTest);
+    };
+  }, []);
   
   useEffect(() => {
     const skillBoxes = document.querySelectorAll('.iconBox');
@@ -218,10 +277,162 @@ function App() {
 
     loadableElements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
   }, []);
+
+useEffect(() => {
+  const about = document.querySelector(".about-section") as HTMLElement | null;
+  if (!about) return;
+
+  const steps = skillDescriptions.length;
+
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  const smoothstep = (t: number) => t * t * (3 - 2 * t);
+
+  let raf = 0;
+
+  const update = () => {
+    const rect = about.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    // sme v sekcii?
+    const inAbout = rect.top < vh && rect.bottom > 0;
+    if (!inAbout) {
+      setHoveredBox(-1);
+      setShowText(false);
+      raf = 0;
+      return;
+    }
+
+    // progress 0..1 cez sekciu
+    const total = rect.height - vh;
+    const progress = clamp01((-rect.top) / (total <= 0 ? 1 : total));
+
+    // 🔑 kde sa začne text meniť (nech default text ostane viditeľný)
+    const startAt = 0.1; // 0.0 = hneď, 0.2 = neskôr
+    const endAt = 0.92;   // 1.0 = až úplný koniec
+
+    if (progress < startAt) {
+      setHoveredBox(-1);
+      setShowText(false);
+      raf = 0;
+      return;
+    }
+
+    // normalize len v intervale startAt..endAt
+    const t = clamp01((progress - startAt) / (endAt - startAt));
+    const eased = smoothstep(t);
+
+    // index 0..steps-1
+    const idx = Math.min(steps - 1, Math.floor(eased * steps));
+
+    setHoveredBox(idx);
+    setShowText(true);
+
+    raf = 0;
+  };
+
+  const onScroll = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(update);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+    if (raf) cancelAnimationFrame(raf);
+  };
+}, [skillDescriptions.length]);
+
+
+useEffect(() => {
+  const aboutFixed = document.querySelector(".about-fixed") as HTMLElement | null;
+  const aboutSection = document.querySelector(".about-section") as HTMLElement | null;
+  const projects = document.querySelector(".projects-section") as HTMLElement | null;
+
+  const left = aboutFixed?.querySelector(".section-left") as HTMLElement | null;
+  const right = aboutFixed?.querySelector(".section-right") as HTMLElement | null;
+
+  if (!aboutFixed || !aboutSection || !projects || !left || !right) return;
+
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  const smoothstep = (t: number) => t * t * (3 - 2 * t);
+
+  let raf = 0;
+  let current = 0;
+    current = 1000;
+    left.style.transform = `translateX(${-current}px)`;
+    right.style.transform = `translateX(${current}px)`;
+  const update = () => {
+
+    const vh = window.innerHeight;
+
+    // ===== 1) VSTUP / PRÍTOMNOSŤ V ABOUT (0..1) =====
+    const ar = aboutSection.getBoundingClientRect();
+
+    // kedy začne prichádzať a kedy je úplne v strede (uprav podľa chuti)
+    const startEnterAt = vh * 0.6;     // začne keď je sekcia ešte nižšie
+    const fullyVisibleAt = vh * 0.2;   // úplne viditeľné už skôr
+
+    const enterRaw = (startEnterAt - ar.top) / (startEnterAt - fullyVisibleAt);
+    const enter = smoothstep(clamp01(enterRaw));
+
+    // enterSlide: keď enter=0 => vysunuté, enter=1 => v strede
+    const maxSlide = 1000;
+    const enterSlide = (1 - enter) * maxSlide;
+    
+    // ===== 2) ODCHOD KEĎ SA BLÍŽIA PROJECTS (0..1) =====
+    const pr = projects.getBoundingClientRect();
+    const startHideAt = vh * 1.5;
+    const fullyHiddenAt = vh * 0.8;
+
+    const exitRaw = (startHideAt - pr.top) / (startHideAt - fullyHiddenAt);
+    const exit = smoothstep(clamp01(exitRaw)); // 0..1
+
+    // exitSlide: keď exit=0 => nič, exit=1 => úplne von
+    const exitSlide = exit * maxSlide;
+
+    // ===== 3) finálna hodnota: enter - exit =====
+    // keď prichádza: slide klesá
+    // keď odchádza: slide rastie
+    const target = Math.max(0, enterSlide) + exitSlide;
+
+    // inertia pre plynulosť
+    current += (target - current) * 0.4;
+
+    left.style.transform = `translateX(${-current}px)`;
+    right.style.transform = `translateX(${current}px)`;
+
+    raf = 0;
+  };
+
+  const onScroll = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(update);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+  
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+    if (raf) cancelAnimationFrame(raf);
+  };
+}, []);
+
+
+
+
+
+   
   return (
     <>
+      <CursorCircle />
       <AnimatedBackground />
       <div className="content">
         <section className="section section-intro">
@@ -230,7 +441,9 @@ function App() {
           <button>View my work</button>
         </section>
 
-        <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: 'auto'}}>
+        <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>
+         <div className="about-placeholder" />
+         <div className="about-fixed">
           <div className="section-left" ref={sectionLeftRef}>
             <h2>About Me</h2>
             <FiUser className="profile-icon" />
@@ -251,13 +464,18 @@ function App() {
             <h2>My skills</h2>
             <div className="skills-icons">
               {skillsIcons.map((iconClass, index) => (
-                <div className='iconBox loadable' key={index} onClick={() => handleSkillClick(index)}>
+                <div 
+                  className='iconBox loadable' 
+                  key={index} 
+                  onClick={() => handleSkillClick(index)}
+                  style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
+                >
                 <i key={index} className={iconClass } style={{fontSize: '3rem', margin: '1rem'}}></i>
                 </div>
               ))}
             </div>
           </div>
-          
+          </div>
         </section>
         <div className='separator'></div>
         <section className="section projects-section" style={{flexDirection: 'column', justifyContent: 'start', alignItems: 'start', minHeight: 'none !important', margin: '0% 5%'}}>
@@ -282,7 +500,11 @@ function App() {
             </div>
             
             {selectedProject && (
-              <div className={`project-detail-page ${selectedProject ? 'slide-in' : 'slide-out'}`}>
+              <div
+                className={`project-detail-page ${selectedProject ? 'slide-in' : 'slide-out'}`}
+                data-lenis-prevent
+                data-lenis-prevent-wheel
+              >
                 
                 <h2>{selectedProject.title}</h2>
                 {selectedProject.moreDetails.map((detail, index) => (

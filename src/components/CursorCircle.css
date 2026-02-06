@@ -1,0 +1,26 @@
+.cursor-circle {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    will-change: transform;
+    background: rgba(255, 255, 255, 0.014);
+    backdrop-filter: blur(4px);
+}
+
+.cursor-circle::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
