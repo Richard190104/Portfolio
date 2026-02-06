@@ -181,12 +181,6 @@ function App() {
   const [showText, setShowText] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const sectionLeftRef = useRef<HTMLDivElement | null>(null);
-  const positionTestRef = useRef({
-    enabled: true,
-    targetTop: 160,
-    targetLeft: 140,
-    tolerance: 12,
-  });
 
 
   const handleSkillClick = (index: number) => {
@@ -216,29 +210,6 @@ function App() {
     };
   }, [selectedProject]);
 
-  useEffect(() => {
-    if (!positionTestRef.current.enabled) return;
-
-    const updatePositionTest = () => {
-      const el = sectionLeftRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const { targetTop, targetLeft, tolerance } = positionTestRef.current;
-      const deltaTop = rect.top - targetTop;
-      const deltaLeft = rect.left - targetLeft;
-
-    };
-
-    window.addEventListener('scroll', updatePositionTest, { passive: true });
-    window.addEventListener('resize', updatePositionTest);
-    updatePositionTest();
-
-    return () => {
-      window.removeEventListener('scroll', updatePositionTest);
-      window.removeEventListener('resize', updatePositionTest);
-    };
-  }, []);
-  
   useEffect(() => {
     const skillBoxes = document.querySelectorAll('.iconBox');
       skillBoxes.forEach((box, index) => {
