@@ -183,14 +183,7 @@ function App() {
   const sectionLeftRef = useRef<HTMLDivElement | null>(null);
 
 
-  const handleSkillClick = (index: number) => {
-    setHoveredBox(index);
-    setShowText(true);
 
-    if (window.innerWidth <= 768 && sectionLeftRef.current) {
-      sectionLeftRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
   
   useEffect(() => {
     if (selectedProject) {
@@ -438,7 +431,6 @@ useEffect(() => {
                 <div 
                   className='iconBox loadable' 
                   key={index} 
-                  onClick={() => handleSkillClick(index)}
                   style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
                 >
                 <i key={index} className={iconClass } style={{fontSize: '3rem', margin: '1rem'}}></i>
