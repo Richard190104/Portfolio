@@ -295,11 +295,7 @@ html, body {
   transform: translateX(-50%);
 }
 
-.iconBox:hover {
-  border-color: var(--red-color);
-  background-color: rgba(255, 255, 255, 0.068);
-  cursor: pointer;
-}
+
 
 .separator{
   width: 100%;
