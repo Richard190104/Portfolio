@@ -154,12 +154,29 @@ html, body {
   background: transparent;
   color: white;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, border-width 0.3s ease;
   border: 2px solid var(--red-color);
 }
 
 .content button:hover {
   border-color: var(--aqua-color);
+  border-width: 3px;
+  animation: buttonVibrate 0.5s ease-in-out;
+}
+
+@keyframes buttonVibrate {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
 }
 
 .content b {

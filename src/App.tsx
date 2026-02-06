@@ -13,9 +13,9 @@ function App() {
  
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 3,
+      duration: 1.9,
       smoothWheel: true,
-      wheelMultiplier: 0.8,
+      wheelMultiplier: 0.9,
     });
     lenisRef.current = lenis;
 
@@ -386,7 +386,10 @@ useEffect(() => {
         <section className="section section-intro">
           <p>Hello, I'm <b>Richard</b>.</p>
           <p>I build modern web applications</p>
-          <button>View my work</button>
+            <button onClick={() => {
+            const projectsSection = document.querySelector('.projects-section');
+            projectsSection?.scrollIntoView({ behavior: 'smooth' });
+            }}>View my work</button>
         </section>
 
         <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>

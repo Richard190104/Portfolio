@@ -99,10 +99,10 @@
     box-shadow: 0 10px 40px rgba(0, 229, 255, 0.15);
 }
 .project-detail-page p{
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     line-height: 1.8;
-    width: 95%;
-    color: rgba(255, 255, 255, 0.8);
+    width: 70%;
+    color: rgba(151, 151, 151, 0.8);
     text-align: left;
     margin: 0.8rem 0;
 }
@@ -110,7 +110,7 @@
 .project-technologies {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: start;
     gap: 0.8rem;
     margin: 1.5rem 0;
     width: 100%;
@@ -124,3 +124,16 @@
     transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+    .project-detail-page {
+        width: 90%;
+        padding: 2rem;
+    }
+    .project-detail-page p {
+        width: 100%;
+        font-size: 1rem;
+    }
+    .project-technologies{
+        width: 100% !important;
+    }
+}
