@@ -304,6 +304,13 @@ html, body {
   margin-top: 5%;
 }
 
+.dimmed{
+  opacity: 0.3 !important;
+}
+
+.undimmed{
+  opacity: 1 !important;
+}
 
 @keyframes loadElement {
   0% {

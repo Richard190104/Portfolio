@@ -413,7 +413,10 @@ useEffect(() => {
             <div className="skills-icons">
               {skillsIcons.map((iconClass, index) => (
                 <div 
-                  className='iconBox loadable' 
+                   className={`
+                    iconBox loadable
+                    ${hoveredBox > index ? "dimmed" : "undimmed"}
+                  `}
                   key={index} 
                   style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
                 >
