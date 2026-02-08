@@ -8,9 +8,16 @@
     transform: translate(-50%, -50%);
     z-index: 9999;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    will-change: transform;
+    will-change: transform, width, height, box-shadow;
     background: rgba(255, 255, 255, 0.014);
     backdrop-filter: blur(4px);
+    transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cursor-circle.hovering {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .cursor-circle::before {

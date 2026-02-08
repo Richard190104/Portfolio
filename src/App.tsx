@@ -6,8 +6,9 @@ import "devicon/devicon.min.css";
 import './App.css'
 import Project from './components/Project';
 import projects from "../src/assets/jsons/projects.json";
-import "./ProjectDetail.css";
+import "./components/ProjectDetail.css";
 import Lenis from "lenis";
+import ProjectDetail from './components/ProjectDetail';
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
  
@@ -34,24 +35,24 @@ function App() {
   }, []);
 
   const skillsIcons = [
-    "devicon-html5-plain colored",        // HTML/CSS
+    "devicon-html5-plain colored",    
     "devicon-css3-plain colored",
 
-    "devicon-javascript-plain colored",   // JavaScript
+    "devicon-javascript-plain colored",  
 
-    "devicon-python-plain colored",       // Python
+    "devicon-python-plain colored",      
 
-    "devicon-java-plain colored",         // Java
+    "devicon-java-plain colored",        
 
-    "devicon-c-plain colored",            // C
+    "devicon-c-plain colored",           
 
-    "devicon-mysql-plain colored",        // SQL (alebo postgres)
+    "devicon-mysql-plain colored",        
 
-    "devicon-react-original colored",     // React
+    "devicon-react-original colored",    
 
-    "devicon-nodejs-plain colored",       // Node.js
+    "devicon-nodejs-plain colored",       
 
-    "devicon-quasar-plain colored"        // Quasar
+    "devicon-quasar-plain colored"       
   ];
 
   const skillDescriptions = [
@@ -182,8 +183,6 @@ function App() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const sectionLeftRef = useRef<HTMLDivElement | null>(null);
 
-
-
   
   useEffect(() => {
     if (selectedProject) {
@@ -227,9 +226,19 @@ function App() {
 
   }, []);
 
+const currentSlideRef = useRef(1000);
+const lastIdxRef = useRef<number | null>(null);
+const lastShowRef = useRef<boolean | null>(null);
+
 useEffect(() => {
-  const about = document.querySelector(".about-section") as HTMLElement | null;
-  if (!about) return;
+  const aboutFixed = document.querySelector(".about-fixed") as HTMLElement | null;
+  const aboutSection = document.querySelector(".about-section") as HTMLElement | null;
+  const projectsSection = document.querySelector(".projects-section") as HTMLElement | null;
+
+  const left = aboutFixed?.querySelector(".section-left") as HTMLElement | null;
+  const right = aboutFixed?.querySelector(".section-right") as HTMLElement | null;
+
+  if (!aboutFixed || !aboutSection || !projectsSection || !left || !right) return;
 
   const steps = skillDescriptions.length;
 
@@ -239,42 +248,91 @@ useEffect(() => {
   let raf = 0;
 
   const update = () => {
-    const rect = about.getBoundingClientRect();
     const vh = window.innerHeight;
 
-    // sme v sekcii?
-    const inAbout = rect.top < vh && rect.bottom > 0;
+    // =========================
+    // 1) TEXT (hoveredBox/showText) podľa progressu v about sekcii
+    // =========================
+    const ar = aboutSection.getBoundingClientRect();
+
+    const inAbout = ar.top < vh && ar.bottom > 0;
+
     if (!inAbout) {
-      setHoveredBox(-1);
-      setShowText(false);
-      raf = 0;
-      return;
+      // mimo sekcie
+      if (lastIdxRef.current !== -1) {
+        lastIdxRef.current = -1;
+        setHoveredBox(-1);
+      }
+      if (lastShowRef.current !== false) {
+        lastShowRef.current = false;
+        setShowText(false);
+      }
+    } else {
+      const total = ar.height - vh;
+      const progress = clamp01((-ar.top) / (total <= 0 ? 1 : total));
+      // kedy začne prepínať text
+      const startAt = 0.1;
+      const endAt = 0.92;
+
+      if (progress < startAt) {
+        if (lastIdxRef.current !== -1) {
+          lastIdxRef.current = -1;
+          setHoveredBox(-1);
+        }
+        if (lastShowRef.current !== false) {
+          lastShowRef.current = false;
+          setShowText(false);
+        }
+      } else {
+        const t = clamp01((progress - startAt) / (endAt - startAt));
+        const eased = smoothstep(t);
+
+        // aby si na konci stihol posledný index:
+        const idx = Math.min(steps - 1, Math.floor(eased * steps));
+
+        if (lastIdxRef.current !== idx) {
+          lastIdxRef.current = idx;
+          setHoveredBox(idx);
+        }
+        if (lastShowRef.current !== true) {
+          lastShowRef.current = true;
+          setShowText(true);
+        }
+      }
     }
 
-    // progress 0..1 cez sekciu
-    const total = rect.height - vh;
-    const progress = clamp01((-rect.top) / (total <= 0 ? 1 : total));
+    // =========================
+    // 2) SLIDE IN/OUT (about-fixed left/right)
+    // =========================
+    // ENTER
+    // zrýchliš tak, že priblížiš tieto hodnoty k sebe (menší interval = rýchlejší nábeh)
+    const startEnterAt = vh * 0.6;
+    const fullyVisibleAt = vh * 0.2;
 
-    // 🔑 kde sa začne text meniť (nech default text ostane viditeľný)
-    const startAt = 0.1; // 0.0 = hneď, 0.2 = neskôr
-    const endAt = 0.92;   // 1.0 = až úplný koniec
+    const enterRaw = (startEnterAt - ar.top) / (startEnterAt - fullyVisibleAt);
+    const enter = smoothstep(clamp01(enterRaw));
+    const maxSlide = 1000;
+    const enterSlide = (1 - enter) * maxSlide;
 
-    if (progress < startAt) {
-      setHoveredBox(-1);
-      setShowText(false);
-      raf = 0;
-      return;
-    }
+    // EXIT (tvoje hodnoty ktoré ti vyhovujú)
+    const pr = projectsSection.getBoundingClientRect();
+    const startHideAt = vh * 1.5;
+    const fullyHiddenAt = vh * 0.8;
 
-    // normalize len v intervale startAt..endAt
-    const t = clamp01((progress - startAt) / (endAt - startAt));
-    const eased = smoothstep(t);
+    const exitRaw = (startHideAt - pr.top) / (startHideAt - fullyHiddenAt);
+    const exit = smoothstep(clamp01(exitRaw));
+    const exitSlide = exit * maxSlide;
 
-    // index 0..steps-1
-    const idx = Math.min(steps - 1, Math.floor(eased * steps));
+    // finálna cieľová vzdialenosť
+    const target = Math.max(0, enterSlide) + exitSlide;
 
-    setHoveredBox(idx);
-    setShowText(true);
+    // inertia / rýchlosť dobiehania (väčšie = rýchlejšie)
+    const speed = 0.35;
+    currentSlideRef.current += (target - currentSlideRef.current) * speed;
+
+    const cur = currentSlideRef.current;
+    left.style.transform = `translateX(${-cur}px)`;
+    right.style.transform = `translateX(${cur}px)`;
 
     raf = 0;
   };
@@ -286,6 +344,8 @@ useEffect(() => {
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
+
+  // ✅ okamžité nastavenie pri loade (bez čakania na scroll)
   update();
 
   return () => {
@@ -294,85 +354,6 @@ useEffect(() => {
     if (raf) cancelAnimationFrame(raf);
   };
 }, [skillDescriptions.length]);
-
-
-useEffect(() => {
-  const aboutFixed = document.querySelector(".about-fixed") as HTMLElement | null;
-  const aboutSection = document.querySelector(".about-section") as HTMLElement | null;
-  const projects = document.querySelector(".projects-section") as HTMLElement | null;
-
-  const left = aboutFixed?.querySelector(".section-left") as HTMLElement | null;
-  const right = aboutFixed?.querySelector(".section-right") as HTMLElement | null;
-
-  if (!aboutFixed || !aboutSection || !projects || !left || !right) return;
-
-  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
-  const smoothstep = (t: number) => t * t * (3 - 2 * t);
-
-  let raf = 0;
-  let current = 0;
-    current = 1000;
-    left.style.transform = `translateX(${-current}px)`;
-    right.style.transform = `translateX(${current}px)`;
-  const update = () => {
-
-    const vh = window.innerHeight;
-
-    // ===== 1) VSTUP / PRÍTOMNOSŤ V ABOUT (0..1) =====
-    const ar = aboutSection.getBoundingClientRect();
-
-    // kedy začne prichádzať a kedy je úplne v strede (uprav podľa chuti)
-    const startEnterAt = vh * 0.6;     // začne keď je sekcia ešte nižšie
-    const fullyVisibleAt = vh * 0.2;   // úplne viditeľné už skôr
-
-    const enterRaw = (startEnterAt - ar.top) / (startEnterAt - fullyVisibleAt);
-    const enter = smoothstep(clamp01(enterRaw));
-
-    // enterSlide: keď enter=0 => vysunuté, enter=1 => v strede
-    const maxSlide = 1000;
-    const enterSlide = (1 - enter) * maxSlide;
-    
-    // ===== 2) ODCHOD KEĎ SA BLÍŽIA PROJECTS (0..1) =====
-    const pr = projects.getBoundingClientRect();
-    const startHideAt = vh * 1.5;
-    const fullyHiddenAt = vh * 0.8;
-
-    const exitRaw = (startHideAt - pr.top) / (startHideAt - fullyHiddenAt);
-    const exit = smoothstep(clamp01(exitRaw)); // 0..1
-
-    // exitSlide: keď exit=0 => nič, exit=1 => úplne von
-    const exitSlide = exit * maxSlide;
-
-    // ===== 3) finálna hodnota: enter - exit =====
-    // keď prichádza: slide klesá
-    // keď odchádza: slide rastie
-    const target = Math.max(0, enterSlide) + exitSlide;
-
-    // inertia pre plynulosť
-    current += (target - current) * 0.4;
-
-    left.style.transform = `translateX(${-current}px)`;
-    right.style.transform = `translateX(${current}px)`;
-
-    raf = 0;
-  };
-
-  const onScroll = () => {
-    if (raf) return;
-    raf = requestAnimationFrame(update);
-  };
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  update();
-  
-  return () => {
-    window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", onScroll);
-    if (raf) cancelAnimationFrame(raf);
-  };
-}, []);
-
 
 
 
@@ -391,7 +372,7 @@ useEffect(() => {
             projectsSection?.scrollIntoView({ behavior: 'smooth' });
             }}>View my work</button>
         </section>
-
+            
         <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>
          <div className="about-placeholder" />
          <div className="about-fixed">
@@ -423,7 +404,7 @@ useEffect(() => {
                   key={index} 
                   style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
                 >
-                <i key={index} className={iconClass } style={{fontSize: '3rem', margin: '1rem'}}></i>
+                <i key={index} className={iconClass + " devicon"} ></i>
                 </div>
               ))}
             </div>
@@ -444,8 +425,8 @@ useEffect(() => {
                       description={value.description}
                       project={value.project}
                       moreDetails={value.moreDetails}
-                      Technologies={value.technologies}
-                      Images={value.images}
+                      technologies={value.technologies}
+                      images={value.images}
                       onSelect={() => setSelectedProject(value)}
                     />
                   ))}
@@ -453,39 +434,7 @@ useEffect(() => {
             </div>
             
             {selectedProject && (
-              <div
-                className={`project-detail-page ${selectedProject ? 'slide-in' : 'slide-out'}`}
-                data-lenis-prevent
-                data-lenis-prevent-wheel
-              >
-                
-                <h2>{selectedProject.title}</h2>
-                {selectedProject.moreDetails.map((detail, index) => (
-                  <div key={index}>
-                  <p>{detail}</p>
-                  {selectedProject.images[index] != "" && selectedProject.images[index] != null && (
-                    <div className="project-images">
-                    <img src={`${import.meta.env.BASE_URL}${selectedProject.images[index]}`} alt={selectedProject.title} />
-                    </div>
-                  )}
-                  </div>
-                ))}
-                {selectedProject.project !== "" && (
-                    <>
-                    <h3>Project Demo</h3>
-                    <div className='project-images'>
-                      <iframe src={selectedProject.project} title={selectedProject.title} width="100%" height="600px" frameBorder="0" allowFullScreen></iframe>
-                    </div>
-                    </>
-                )}
-                <h3>Technologies Used:</h3>
-                <div className="project-technologies">
-                  {selectedProject.technologies.map((tech, index) => (
-                      <span key={index} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-                <button className="close-button" onClick={() => setSelectedProject(null)}>Back to Projects</button>  
-              </div>
+               <ProjectDetail selectedProject={selectedProject} deselectProject={() => setSelectedProject(null)} />
             )}
           </div>
          

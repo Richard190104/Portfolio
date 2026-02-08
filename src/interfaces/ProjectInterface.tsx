@@ -3,7 +3,7 @@ export default interface ProjectInterface {
     description: string;
     project: string;
     moreDetails: string[];
-    Technologies: string[];
-    Images: string[];
+    technologies: string[];
+    images: string[];
     onSelect?: () => void;
 }

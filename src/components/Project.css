@@ -47,13 +47,13 @@
 .project-technologies {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
     position: relative;
     justify-content: center;
     z-index: 1;
     transition: all 0.3s ease;
-    width: 30%;
-    margin-left: 2%;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+    width: 100%;
 }
 
 .tech-tag {
@@ -80,13 +80,13 @@
 
 
 .project-box:hover h3{
-    transform: translateX(5%);
-    font-size: 1.3rem;
     margin: 0 0 0.5rem 0;
 }
 
 .project-box:hover .project-technologies {
     gap: 0.8rem;
+    transform: translateX(5%);
+
 }
 
 
