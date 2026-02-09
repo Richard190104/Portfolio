@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './introPage.css';
 export default function IntroPage() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -12,7 +12,6 @@ export default function IntroPage() {
         });
         const handleScroll = () => {
             const element = document.querySelector('.introText') as HTMLElement | null;
-            let scrollProgress = 0;
             if (!sectionRef.current) return;
 
             const section = sectionRef.current;
@@ -26,7 +25,6 @@ export default function IntroPage() {
             
             const progress = Math.min(Math.max((scrollY - scrollStart) / (scrollEnd - scrollStart), 0), 1);
             
-            scrollProgress = progress;
             element!.style.transform = `scale(${progress * 2 + 1})`; 
             element!.style.opacity = `${1 - progress }`;
            
