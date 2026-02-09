@@ -77,3 +77,14 @@
     }
 }
 
+@media (max-width: 1000px) {
+    .navbar {
+        width: 90%;
+        left: 5%;
+        top: 2%;
+    }
+    .navbar h3 {
+        font-size: 0.7rem;
+    }
+
+}

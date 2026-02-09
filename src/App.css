@@ -561,9 +561,11 @@ html, body {
   }
   .section-left{
     width: 100% !important;
+    max-height: none !important;
   }
   .section-left p{
     font-size: 0.9rem !important;
+    width: 50% !important;
   }
   .slideInfoText {
     width: 80% !important;
@@ -571,6 +573,9 @@ html, body {
   .section-right{
     width: 80% !important;
   } 
+  .main-text{
+    width: 50% !important;
+  }
   .skills-icons {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
