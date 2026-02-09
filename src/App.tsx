@@ -437,7 +437,7 @@ useEffect(() => {
                   return (
                   <div 
                     className={`
-                      iconBox loadable
+                      iconBox
                       ${hoveredBox > index ? "dimmed" : "undimmed"}
                       ${hoveredBox === index ? "hovered" : ""}
                     `}
