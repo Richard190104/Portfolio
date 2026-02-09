@@ -307,6 +307,27 @@ html, body {
   width: 100%;
 }
 
+.CVButton{
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: rgba(0, 247, 255, 0.575);
+  background-color: #f8f8f810;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  transition: all 0.3s ease ;
+  overflow: hidden;
+}
+
+.CVButton:hover {
+  transform: translateY(-5%);
+}
 
 .skills-icons {
   margin-top: 2rem;

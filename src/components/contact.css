@@ -1,0 +1,227 @@
+.contact {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 6rem 6vw;
+    overflow: hidden;
+}
+
+.contact::before,
+.contact::after {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.25;
+    z-index: 0;
+}
+
+.contact-shell {
+    position: relative;
+    z-index: 1;
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem;
+    align-items: center;
+    border-radius: 28px;
+    padding: 3.5rem;
+    backdrop-filter: blur(16px);
+}
+
+.contact-copy {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.contact-kicker {
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.contact h2 {
+    color: #ffffff;
+    font-size: clamp(2.4rem, 3.5vw, 3.2rem);
+    margin: 0;
+    font-weight: 700;
+    text-shadow: none !important;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.contact-lede {
+    font-size: 1rem;
+    margin: 0;
+    max-width: 32rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    width: 50%;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, background 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.contact-button.primary {
+    color: #f8fbff;
+}
+
+
+
+.contact-button:hover {
+    transform: translateY(-2px);
+}
+
+.contact-button.ghost:hover {
+    background: rgba(173, 173, 173, 0.08);
+}
+
+.contact-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.contact-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(173, 173, 173, 0.08);
+}
+
+.contact-meta-item .label {
+    font-size: 0.75rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.contact-meta-item .value {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.contact-card {
+    position: relative;
+    padding: 2.5rem;
+    border-radius: 24px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    box-shadow: inset 0 0 30px rgba(0, 229, 255, 0.08);
+    overflow: hidden;
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(0, 229, 255, 0.2), transparent 70%);
+    opacity: 0.6;
+}
+
+.contact-card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: left;
+}
+
+.contact-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #ffffff;
+}
+
+.contact-copy p{
+    font-size: 1rem !important;
+}
+
+.contact-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7 ;
+    font-size: 0.95rem !important;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.contact-chip {
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    letter-spacing: 0.4px;
+}
+
+@media (max-width: 960px) {
+    .contact-shell {
+        grid-template-columns: 1fr;
+        padding: 2.8rem;
+    }
+
+    .contact {
+        padding: 5rem 6vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .contact {
+        min-height: auto;
+        padding: 4.5rem 1.5rem;
+    }
+
+    .contact-shell {
+        padding: 2rem;
+        gap: 2rem;
+    }
+
+    .contact-meta {
+        grid-template-columns: 1fr;
+    }
+    .contact-copy *{
+        width: 90%;
+    }
+    .content p{
+        width: 100% !important;
+    }
+}

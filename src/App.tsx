@@ -11,6 +11,7 @@ import Lenis from "lenis";
 import ProjectDetail from './components/ProjectDetail';
 import IntroPage from './components/introPage';
 import Navbar from './components/navbar';
+import Contact from './components/contact';
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
  
@@ -176,6 +177,10 @@ function App() {
   const randomPositionsRef = useRef<Array<{ top: number; left: number }>>([]);
   const gridPositionsRef = useRef<Array<{ top: number; left: number }>>([]);
   const [skillProgress, setSkillProgress] = useState(0);
+
+  function handleCVButtonClick() {
+    window.location.href = 'https://richard190104.github.io/CV/';
+  }
 
   useEffect(() => {
     // Generate random positions once
@@ -389,7 +394,6 @@ useEffect(() => {
 
 
 
-
    
   return (
     <>
@@ -407,9 +411,10 @@ useEffect(() => {
           <div className="section-left" ref={sectionLeftRef}>
             <h2>About Me</h2>
             <FiUser className="profile-icon" />
+              <h3 className='CVButton' onClick={handleCVButtonClick}>View my CV</h3>
             <div className={`slideInfoText ${showText ? 'hovered' : ''}`}>
+
               <div className="text-slider">
-                
                 <p className="main-text">
                   I am a computer science student at the <b>Faculty of Informatics and Information Technologies</b>, STU in Bratislava.<br /> <br />
                   I have a strong passion for <b>web development</b> and enjoy creating interactive and visually appealing user interfaces.
@@ -490,7 +495,7 @@ useEffect(() => {
           </div>
          
         </section>
-
+        <Contact></Contact>
       </div>
 
     </>

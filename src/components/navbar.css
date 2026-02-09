@@ -24,7 +24,7 @@
 
 .navbar h3:hover {
     color: rgba(3, 216, 231, 0.95);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.123);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.123);
 }
 
 .navbar h3:not(.active):hover {
@@ -32,8 +32,8 @@
     border-radius: 20px;
     border-bottom: 1px solid rgba(3, 216, 231, 0.089);
     box-shadow: 
-        0px 3px 5px rgba(3, 216, 231, 0.5),
-        0 1px 0px rgba(3, 216, 231, 0.3),
+        0px 10px 9px rgba(3, 216, 231, 0.158),
+        0 0px 0px rgba(3, 216, 231, 0.363),
         inset 0 0 0px rgba(3, 216, 231, 0.1);
 }
 
@@ -42,14 +42,14 @@
 }
 
 .navbar h3.active{
-    color: rgba(3, 216, 231, 0.95);
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    color: rgba(3, 216, 231, 0.637);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     padding: 6px 5px;
     border-radius: 20px;
     border-bottom: 1px solid rgba(3, 216, 231, 0.089);
     box-shadow: 
-        0px 3px 5px rgba(3, 216, 231, 0.5),
-        0 1px 0px rgba(3, 216, 231, 0.3),
+        0px 10px 9px rgba(3, 216, 231, 0.158),
+        0 0px 0px rgba(3, 216, 231, 0.363),
         inset 0 0 0px rgba(3, 216, 231, 0.1);
 }
 
@@ -74,3 +74,4 @@
             inset 0 0 15px rgba(3, 216, 231, 0.2);
     }
 }
+

@@ -6,8 +6,10 @@ export default function AnimatedBackground() {
   const mousePosition = useMousePosition()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mousePositionRef = useRef(mousePosition)
-  const starsNumber = Math.round(window.innerWidth / 12)
+  const starsNumber = Math.round(window.innerWidth / 20)
+
   const stars = useMemo(() => {
+
     return [...Array(starsNumber)].map((_, i) => {
       const x = Math.random() * window.innerWidth
       const y = Math.random() * window.innerHeight
@@ -41,14 +43,14 @@ export default function AnimatedBackground() {
 
     const setCanvasSize = () => {
       canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      canvas.height = window.innerHeight * 3
     }
 
     setCanvasSize()
     window.addEventListener('resize', setCanvasSize)
 
     let animationId: number
-    const linkRadius = 160
+    const linkRadius = 200
 
     const cursorRadius = 200
 
@@ -64,7 +66,9 @@ export default function AnimatedBackground() {
       }
 
       const starElements = canvas.parentElement?.querySelectorAll('.star') ?? []
+
       const positions = Array.from(starElements).map((element) => {
+
         const rect = element.getBoundingClientRect()
         return {
           x: rect.left + rect.width / 2,
