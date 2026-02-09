@@ -10,6 +10,7 @@ import "./components/ProjectDetail.css";
 import Lenis from "lenis";
 import ProjectDetail from './components/ProjectDetail';
 import IntroPage from './components/introPage';
+import Navbar from './components/navbar';
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
  
@@ -59,7 +60,7 @@ function App() {
   <>
     <i
       className="devicon-html5-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>HTML5</b>: I started learning HTML in high school by creating{" "}
@@ -71,7 +72,7 @@ function App() {
   <>
     <i
       className="devicon-javascript-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>JavaScript</b>: I first encountered JavaScript a year before I started
@@ -84,7 +85,7 @@ function App() {
   <>
     <i
       className="devicon-python-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>Python</b>: Python was the first programming language I chose to learn.
@@ -97,7 +98,7 @@ function App() {
   <>
     <i
       className="devicon-java-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>Java</b>: I first learned the basics of <b>object-oriented programming</b> in
@@ -108,7 +109,7 @@ function App() {
   <>
     <i
       className="devicon-c-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>C</b>: I first encountered C at university, where I learned pointers and
@@ -120,7 +121,7 @@ function App() {
   <>
     <i
       className="devicon-mysql-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>SQL</b>: I Completed several advanced SQL queries in my second year on university as a school projects. These included window functions, query optimization, indexing, and more. 
@@ -132,7 +133,7 @@ function App() {
   <>
     <i
       className="devicon-react-original colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>React</b>: After simple HTML + CSS + JavaScript projects, I wanted to build more
@@ -145,7 +146,7 @@ function App() {
   <>
     <i
       className="devicon-nodejs-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
+      style={{ fontSize: "2.5rem", margin: "1rem" }}
     ></i>
     <br />
     <b>Node.js</b>: I used Node.js couple of times for <b>server-side development</b>—building APIs,
@@ -170,6 +171,33 @@ function App() {
   const [showText, setShowText] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const sectionLeftRef = useRef<HTMLDivElement | null>(null);
+
+  // Generate random initial positions and store grid target positions
+  const randomPositionsRef = useRef<Array<{ top: number; left: number }>>([]);
+  const gridPositionsRef = useRef<Array<{ top: number; left: number }>>([]);
+  const [skillProgress, setSkillProgress] = useState(0);
+
+  useEffect(() => {
+    // Generate random positions once
+    if (randomPositionsRef.current.length === 0) {
+      randomPositionsRef.current = skillsIcons.map(() => ({
+        top: Math.random() * 80,
+        left: Math.random() * 80,
+      }));
+    }
+
+    // Generate grid positions (3 columns)
+    if (gridPositionsRef.current.length === 0) {
+      gridPositionsRef.current = skillsIcons.map((_, index) => {
+        const row = Math.floor(index / 3);
+        const col = index % 3;
+        return {
+          top: row * 30 + 10,
+          left: col * 30 + 10,
+        };
+      });
+    }
+  }, []);
 
   
   useEffect(() => {
@@ -222,11 +250,9 @@ useEffect(() => {
   const aboutFixed = document.querySelector(".about-fixed") as HTMLElement | null;
   const aboutSection = document.querySelector(".about-section") as HTMLElement | null;
   const projectsSection = document.querySelector(".projects-section") as HTMLElement | null;
-
   const left = aboutFixed?.querySelector(".section-left") as HTMLElement | null;
   const right = aboutFixed?.querySelector(".section-right") as HTMLElement | null;
-  const button = document.querySelector(".view-work-button") as HTMLElement | null;
-  if (!aboutFixed || !aboutSection || !projectsSection || !left || !right || !button) return;
+  if (!aboutFixed || !aboutSection || !projectsSection || !left || !right ) return;
 
   const steps = skillDescriptions.length;
 
@@ -287,10 +313,29 @@ useEffect(() => {
           setShowText(true);
         }
       }
+
+      // =========================
+      // 2) ANIMATE SKILLS (random to grid on scroll)
+      // =========================
+      // Skills animation starts at 30% and completes at 90% of scroll
+      const skillStartAt = 0.3;
+      const skillEndAt = 0.9;
+      
+      if (progress >= skillStartAt && progress <= skillEndAt) {
+        const skillT = clamp01((progress - skillStartAt) / (skillEndAt - skillStartAt));
+        const skillEased = smoothstep(skillT);
+        console.log(skillEased,progress);
+
+        setSkillProgress(skillEased);
+      } else if (progress < skillStartAt) {
+        setSkillProgress(0);
+      } else {
+        setSkillProgress(1);
+      }
     }
 
     // =========================
-    // 2) SLIDE IN/OUT (about-fixed left/right)
+    // 3) SLIDE IN/OUT (about-fixed left/right)
     // =========================
     // ENTER
     // zrýchliš tak, že priblížiš tieto hodnoty k sebe (menší interval = rýchlejší nábeh)
@@ -299,7 +344,7 @@ useEffect(() => {
 
     const enterRaw = (startEnterAt - ar.top) / (startEnterAt - fullyVisibleAt);
     const enter = smoothstep(clamp01(enterRaw));
-    const maxSlide = 1000;
+    const maxSlide = 2500;
     const enterSlide = (1 - enter) * maxSlide;
 
     // EXIT (tvoje hodnoty ktoré ti vyhovujú)
@@ -321,8 +366,6 @@ useEffect(() => {
     const cur = currentSlideRef.current;
     left.style.transform = `translateX(${-cur}px)`;
     right.style.transform = `translateX(${cur}px)`;
-    button.style.opacity = `${1 - cur / maxSlide}`;
-    button.classList.toggle("animate", cur < maxSlide * 0.5);
     raf = 0;
   };
 
@@ -353,9 +396,12 @@ useEffect(() => {
       <CursorCircle />
       <AnimatedBackground />
       <div className="content">
+      <Navbar />
+
+
         <IntroPage />
             
-        <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>
+        <section className="section about-section" id="about" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>
          <div className="about-placeholder" />
          <div className="about-fixed">
           <div className="section-left" ref={sectionLeftRef}>
@@ -375,32 +421,44 @@ useEffect(() => {
             </div>
           </div>
           <div className="section-right">
-            <h2>My skills</h2>
-            <div className="skills-icons">
-              {skillsIcons.map((iconClass, index) => (
-                <div 
-                   className={`
-                    iconBox loadable
-                    ${hoveredBox > index ? "dimmed" : "undimmed"}
-                    ${hoveredBox === index ? "hovered" : ""}
-                  `}
-                  key={index} 
-                  style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
-                >
-                <i key={index} className={iconClass + " devicon"} ></i>
-                </div>
-              ))}
+
+              <h2>My skills</h2>
+              <div className="skills-icons">
+                {skillsIcons.map((iconClass, index) => {
+                  const randomPos = randomPositionsRef.current[index];
+                  const gridPos = gridPositionsRef.current[index];
+                  const top = randomPos && gridPos 
+                    ? randomPos.top + (gridPos.top - randomPos.top) * skillProgress
+                    : 0;
+                  const left = randomPos && gridPos 
+                    ? randomPos.left + (gridPos.left - randomPos.left) * skillProgress
+                    : 0;
+                  
+                  return (
+                  <div 
+                    className={`
+                      iconBox loadable
+                      ${hoveredBox > index ? "dimmed" : "undimmed"}
+                      ${hoveredBox === index ? "hovered" : ""}
+                    `}
+                    key={index}
+                    style={{
+                      top: `${top}%`,
+                      left: `${left}%`,
+                      ...(hoveredBox === index ? { boxShadow: '0 0 15px rgba(0, 229, 255, 0.6)'} : {})
+                    }}
+                  >
+                  <i key={index} className={iconClass + " devicon"} ></i>
+                  </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          </div>
-          <button className="view-work-button" onClick={() => {
-          const projectsSection = document.querySelector('.projects-section');
-          projectsSection?.scrollIntoView({ behavior: 'smooth' });
-          }}>View my work</button>
         </section>
         <div className='separator'></div>
-        <section className="section projects-section" style={{flexDirection: 'column', justifyContent: 'start', alignItems: 'start', minHeight: 'none !important', margin: '0% 5%'}}>
+        <section className="section projects-section" id="projects" style={{flexDirection: 'column', justifyContent: 'start', alignItems: 'start', minHeight: 'none !important', margin: '0% 5%'}}>
           <h2>My Projects</h2>
           
           <div className="projects-wrapper" style={{width: '100%'}}>
@@ -415,14 +473,19 @@ useEffect(() => {
                       moreDetails={value.moreDetails}
                       technologies={value.technologies}
                       images={value.images}
-                      onSelect={() => setSelectedProject(value)}
+                      onSelect={() => {
+                        setSelectedProject(value);
+                        document.querySelector('.navbar')?.classList.add('hidden');
+                      }}
                     />
                   ))}
               </div>
             </div>
             
             {selectedProject && (
-               <ProjectDetail selectedProject={selectedProject} deselectProject={() => setSelectedProject(null)} />
+               <ProjectDetail selectedProject={selectedProject} deselectProject={() => {setSelectedProject(null);
+                document.querySelector('.navbar')?.classList.remove('hidden');
+               }} />
             )}
           </div>
          

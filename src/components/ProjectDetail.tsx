@@ -84,48 +84,50 @@ export default function ProjectDetail({
 
   if (!selectedProject) return null;
 
-  // ✅ refs reset (dôležité pri zmene projektu)
   refs.current = [];
 
   return (
     <div
-      ref={pageRef}
       className={`project-detail-page ${selectedProject ? "slide-in" : "slide-out"}`}
       data-lenis-prevent
       data-lenis-prevent-wheel
     >
       <div className="detail-project-wrapper">
-        <div style={{minHeight: '90vh', display: 'flex', width: '100%', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', borderBottom: '10px solid gray'}}>
-        <h2>{selectedProject.title}</h2>
-        <h3>{selectedProject.description}</h3>
-        </div>
-        {selectedProject.moreDetails.map((detail, index) => (
-          <div key={index} className="project-div-text" >
-            <p ref={(el) => { refs.current[index] = el; }} className="detailStepBox left">{detail}</p>
+       
 
-            {!!selectedProject.images[index] && (
-              <div className="project-images right" ref={(el) => { refs.current[index + selectedProject.moreDetails.length] = el; }}>
-                <img
-                  src={`${import.meta.env.BASE_URL}${selectedProject.images[index]}`}
-                  alt={selectedProject.title}
-                />
-              </div>
-            )}
-          </div>
-        ))}
-
-        <div className="k">
-        <h3>Technologies Used:</h3>
-        <div className="project-technologies-detail">
-          {selectedProject.technologies.map((tech, i) => (
-            <span key={i} className="tech-tag">{tech}</span>
+        <div className="detail-images-gallery">
+          {selectedProject.images.filter(img => img).map((image, index) => (
+            <div key={index} className="gallery-image-block">
+              <img
+                src={`${import.meta.env.BASE_URL}${image}`}
+                alt={`${selectedProject.title} - ${index + 1}`}
+              />
+            </div>
           ))}
         </div>
 
-        <button className="close-button" onClick={deselectProject}>
-          Back to Projects
-        </button>
-      </div>
+        <div className="detail-content-section">
+          <div className="detail-left-content">
+            <h2>{selectedProject.title}</h2>
+            <p className="detail-description">{selectedProject.description}</p>
+            {selectedProject.moreDetails.map((detail, index) => (
+              <p key={index} className="detail-text">{detail}</p>
+            ))}
+          </div>
+
+          <div className="detail-right-content">
+            <div className="project-technologies-detail">
+              <div className="project-tech-tags">
+              {selectedProject.technologies.map((tech, i) => (
+                <span key={i} className="tech-tag">{tech}</span>
+              ))}
+              </div>
+               <button className="close-button-top" onClick={deselectProject}>
+              Back to Projects
+            </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ export default function AnimatedBackground() {
   const mousePosition = useMousePosition()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mousePositionRef = useRef(mousePosition)
-  const starsNumber = Math.round(window.innerWidth / 7)
+  const starsNumber = Math.round(window.innerWidth / 12)
   const stars = useMemo(() => {
     return [...Array(starsNumber)].map((_, i) => {
       const x = Math.random() * window.innerWidth

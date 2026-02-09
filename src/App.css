@@ -14,11 +14,8 @@ html, body {
   padding: 0;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
-
-
-
-
 
 /* Custom Scrollbar for entire page */
 ::-webkit-scrollbar {
@@ -107,6 +104,7 @@ html, body {
   inset: 0;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: flex-start;
   padding-top: 5% !important;
   padding: 0 10%;
@@ -124,7 +122,6 @@ html, body {
 
 
 
-/* Scroll reveal animations for about-section */
 .about-section h2,
 .about-section .profile-icon,
 .about-section .skills-icons,
@@ -133,7 +130,6 @@ html, body {
   will-change: transform;
 }
 
-/* Keep text visible */
 .about-section .slideInfoText {
   opacity: 1 !important;
   transform: none !important;
@@ -148,7 +144,7 @@ html, body {
 }
 
 .content p {
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 300;
   margin: 0.5rem 0;
@@ -168,7 +164,7 @@ html, body {
 .content button {
   margin-top: 2rem;
   padding: 1.2rem 2.5rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
   border-radius: 8px;
   text-align: center;
   background: linear-gradient(135deg, rgba(89, 165, 255, 0.1), rgba(89, 165, 255, 0.05));
@@ -250,12 +246,12 @@ html, body {
 }
 
 .section-left {
-  width: 50%;
+  width: 100%;
   text-align: center;
   justify-content: center;
   align-items: center;
   display: flex;
-  top: 120px;   
+  margin-top: 80px;   
   flex-direction: column;
   transition: none;
   transform: translateX(-1000px);
@@ -263,7 +259,7 @@ html, body {
 
 .section h2 {
   color: var(--section-header-color);
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 0px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -275,7 +271,7 @@ html, body {
 
 
 .section-left p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 200;
 
 }
@@ -295,33 +291,36 @@ html, body {
 }
 
 .section-right {
-  width: 50%;
+  width: 100%;
   display: flex;
   text-align: center;
-  justify-content: center !important;
+  justify-content: flex-start !important;
   align-items: center;
   flex-direction: column;
   top: 120px;   
-  transform: translateX(1000px);
+  transform: translateX(2000px);
+  overflow: hidden;
+  height: 100%;
+  z-index: 2000;
 }
 
 .section-right h2{
-  width: 50%;
+  width: 100%;
 }
+
 
 .skills-icons {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(9, minmax(0, 1fr));
   gap: 50px;
-  width: 50%;
+  width: 100%;
   justify-items: center;
   align-items: center;
 }
 
-
 .devicon{
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   background: linear-gradient(
     135deg,
@@ -333,13 +332,11 @@ html, body {
   -webkit-text-fill-color: transparent;
   }
 
- 
-
 
 .iconBox{
   display: flex;
-  padding: 35%;
-  border-radius: 5%;
+  padding: 20%;
+  border-radius: 25%;
   justify-content: center;
   align-items: center;
   border: 2px solid rgba(0, 229, 255, 0.295);
@@ -352,7 +349,7 @@ html, body {
 .slideInfoText {
   margin-top: 2rem;
   color: var(--section-header-color);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 300;
   width: 60%;
   max-width: 600px;
@@ -489,19 +486,7 @@ html, body {
     z-index: 2;
   }
 
-.view-work-button{
-  position: fixed !important;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all 0.3s ease !important;
-  z-index: 1000;
-  opacity: 0;
-}
 
-.animate{
-  animation: buttonShake 4s ease infinite;
-}
 
 @keyframes buttonShake {
   0%, 100% {
@@ -528,7 +513,7 @@ html, body {
     width: 100% !important;
   }
   .section-left p{
-    font-size: 1rem !important;
+    font-size: 0.9rem !important;
   }
   .slideInfoText {
     width: 80% !important;
@@ -544,7 +529,7 @@ html, body {
     border-width: 1px !important;
   }
   .iconBox i {
-    font-size: 2.2rem !important;
+    font-size: 2rem !important;
     margin: 0.6rem !important;
   }
   .project-list {
@@ -559,11 +544,11 @@ html, body {
     align-items: center !important;
   }
   .project-box p{
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
     width: 50% !important;
   }
   .project-box h3{
-    font-size: 1rem !important;
+    font-size: 0.9rem !important;
   }
   .project-container{
     margin: 0% !important;
@@ -584,7 +569,7 @@ html, body {
     padding: 5%;
   }
   .section-intro p{
-    font-size: 2.3rem !important;
+    font-size: 2rem !important;
     width: 100% !important;
   }
   .section-right{

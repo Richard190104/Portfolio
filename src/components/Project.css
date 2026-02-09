@@ -17,7 +17,7 @@
 
 .project-box h3 {
     color: #ffffff;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 700;
     line-height: 1.2;
     margin: 0 0 0.5rem 0;
@@ -32,8 +32,7 @@
 }
 
 .project-box p {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 300;
     line-height: 1.4;
     margin: 0;
@@ -63,7 +62,7 @@
     padding: 0.35rem 0.85rem;
     background: rgba(0, 229, 255, 0.08);
     border: 1px solid rgba(0, 229, 255, 0.25);
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     color: #00e5ff;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -119,17 +118,6 @@
 }
 
 
-
-@keyframes slideFromRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(-50%);
-        opacity: 1;
-    }
-}
 
 .project-detail-page.slide-out {
     animation: slideToRight 1s forwards;

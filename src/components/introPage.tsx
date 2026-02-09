@@ -70,16 +70,13 @@ export default function IntroPage() {
 
     return (
         <>
-        <section className="section section-intro" ref={sectionRef}>
+        <section className="section section-intro" id="home" ref={sectionRef}>
             <div className="intro-wrapper">
                 <canvas ref={canvasRef}></canvas>
                 <div className='introText'>
                     <p>Hello, I'm <b>Richard</b>.</p>
                     <p>I build modern web applications</p>
-                    <button onClick={() => {
-                    const projectsSection = document.querySelector('.projects-section');
-                    projectsSection?.scrollIntoView({ behavior: 'smooth' });
-                    }}>View my work</button>
+
                 </div>
                 
             </div>
