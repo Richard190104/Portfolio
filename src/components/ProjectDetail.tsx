@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import type ProjectInterface from "../interfaces/ProjectInterface";
 
 export default function ProjectDetail({
@@ -10,6 +11,23 @@ export default function ProjectDetail({
 }) {
   const pageRef = useRef<HTMLDivElement | null>(null);
   const refs = useRef<(HTMLElement | null)[]>([]);
+  const [swipeX, setSwipeX] = useState(0);
+
+  const swipeHandlers = useSwipeable({
+    onSwipedRight: () => {
+      deselectProject();
+    },
+    onSwiping: (eventData) => {
+      if (eventData.deltaX > 0) {
+        setSwipeX(eventData.deltaX);
+      }
+    },
+    onSwiped: () => {
+      setSwipeX(0);
+    },
+    trackMouse: false,
+    delta: 30, 
+  });
 
   useEffect(() => {
     const scroller = pageRef.current;
@@ -88,23 +106,24 @@ export default function ProjectDetail({
 
   return (
     <div
+      {...swipeHandlers}
+      ref={pageRef}
       className={`project-detail-page ${selectedProject ? "slide-in" : "slide-out"}`}
       data-lenis-prevent
       data-lenis-prevent-wheel
+      style={{
+        transform: `translateX(calc(-50% + ${swipeX}px))`,
+        opacity: Math.max(0.6, 1 - swipeX / 500),
+      }}
     >
-      <div className="detail-project-wrapper">
-       
 
-        <div className="detail-images-gallery">
-          {selectedProject.images.filter(img => img).map((image, index) => (
-            <div key={index} className="gallery-image-block">
-              <img
-                src={`${import.meta.env.BASE_URL}${image}`}
-                alt={`${selectedProject.title} - ${index + 1}`}
-              />
-            </div>
-          ))}
-        </div>
+      <div className="detail-project-wrapper">
+            <button className="close-button-top" onClick={deselectProject}>
+              Back to Projects
+            </button>
+           
+
+
 
         <div className="detail-content-section">
           <div className="detail-left-content">
@@ -122,11 +141,29 @@ export default function ProjectDetail({
                 <span key={i} className="tech-tag">{tech}</span>
               ))}
               </div>
-               <button className="close-button-top" onClick={deselectProject}>
-              Back to Projects
-            </button>
+              {selectedProject.project && (
+                <button className="view-website-button" onClick={() => window.open(selectedProject.project, '_blank')}>
+                    View wsebsite
+                </button>
+                
+              )}
+              <button className="view-code-button" onClick={() => window.open(selectedProject.project, '_blank')}>
+                    View code
+                </button>
+                
+              
             </div>
           </div>
+        </div>
+                <div className="detail-images-gallery">
+          {selectedProject.images.filter(img => img).map((image, index) => (
+            <div key={index} className="gallery-image-block">
+              <img
+                src={`${import.meta.env.BASE_URL}${image}`}
+                alt={`${selectedProject.title} - ${index + 1}`}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

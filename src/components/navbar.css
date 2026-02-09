@@ -6,8 +6,8 @@
   width: 20%;
   height: 40px;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.055);
+  background-color: rgba(255, 255, 255, 0.055);
+  border: 0.5px solid rgba(255, 255, 255, 0.075);
   backdrop-filter: blur(20px);
   display: flex;
   justify-content: space-around;
@@ -18,8 +18,14 @@
 
 .navbar h3{
     font-size: 0.8rem;
-    color: rgba(235, 235, 235, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
+    height: 100%;
+    padding: 0px !important;
+    margin: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar h3:hover {
@@ -28,13 +34,12 @@
 }
 
 .navbar h3:not(.active):hover {
-    padding: 6px 12px;
-    border-radius: 20px;
+    color: rgba(3, 216, 231, 0.637);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    padding: 6px 5px;
     border-bottom: 1px solid rgba(3, 216, 231, 0.089);
-    box-shadow: 
-        0px 10px 9px rgba(3, 216, 231, 0.158),
-        0 0px 0px rgba(3, 216, 231, 0.363),
-        inset 0 0 0px rgba(3, 216, 231, 0.1);
+    border-top: 1px solid rgba(3, 216, 231, 0.089);
+   
 }
 
 .navbar:hover{
@@ -45,12 +50,9 @@
     color: rgba(3, 216, 231, 0.637);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     padding: 6px 5px;
-    border-radius: 20px;
     border-bottom: 1px solid rgba(3, 216, 231, 0.089);
-    box-shadow: 
-        0px 10px 9px rgba(3, 216, 231, 0.158),
-        0 0px 0px rgba(3, 216, 231, 0.363),
-        inset 0 0 0px rgba(3, 216, 231, 0.1);
+    border-top: 1px solid rgba(3, 216, 231, 0.089);
+
 }
 
 .hidden{
