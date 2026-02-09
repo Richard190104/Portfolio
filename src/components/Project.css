@@ -4,12 +4,14 @@
     justify-content: space-between;
     align-items: center;
     background: rgba(20, 20, 22, 0.26);
-    padding: 0.2rem 0.2rem;
+    padding: 0.3rem 3rem;
     position: relative;
     transition: all 0.3s ease;
     width: 80%;
+    border-radius: 5px;
     cursor: pointer;
     border-bottom: 2px solid var(--aqua-color);
+    border-top: 2px solid var(--aqua-color);
 }
 
 
@@ -48,12 +50,13 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    justify-content: center;
+    justify-content: flex-start;
     z-index: 1;
     transition: all 0.3s ease;
     gap: 0.8rem;
     margin: 1.5rem 0;
-    width: 100%;
+    padding-left: 20%;
+    width: 60%;
 }
 
 .tech-tag {
@@ -65,31 +68,29 @@
     font-weight: 500;
     transition: all 0.2s ease;
     letter-spacing: 0.3px;
+    border-radius: 5%;
 }
 
 .tech-tag:hover {
     background: rgba(0, 229, 255, 0.15);
     border-color: rgba(0, 229, 255, 0.5);
+
 }
 
 .project-box:hover {
-    border-color: rgba(255, 0, 0, 0.5);
+    border-color: rgba(255, 0, 0, 0.377);
 }
-
-
-
 
 .project-box:hover h3{
     margin: 0 0 0.5rem 0;
+
 }
 
 .project-box:hover .project-technologies {
     gap: 0.8rem;
-    transform: translateX(5%);
+    transform: translateX(-5%);
 
 }
-
-
 
 .projects-wrapper {
     position: relative;

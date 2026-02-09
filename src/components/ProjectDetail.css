@@ -155,12 +155,6 @@
     letter-spacing: 0.3px;
 }
 
-.tech-tag:hover {
-    background: linear-gradient(135deg, rgba(0, 229, 255, 0.2) 0%, rgba(0, 229, 255, 0.1) 100%);
-    border-color: rgba(0, 229, 255, 0.6);
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
-    transform: translateY(-2px);
-}
 
 @media (max-width: 768px) {
     .project-detail-page {

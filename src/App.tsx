@@ -9,6 +9,7 @@ import projects from "../src/assets/jsons/projects.json";
 import "./components/ProjectDetail.css";
 import Lenis from "lenis";
 import ProjectDetail from './components/ProjectDetail';
+import IntroPage from './components/introPage';
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
  
@@ -36,7 +37,6 @@ function App() {
 
   const skillsIcons = [
     "devicon-html5-plain colored",    
-    "devicon-css3-plain colored",
 
     "devicon-javascript-plain colored",  
 
@@ -66,18 +66,6 @@ function App() {
     <b>simple web pages</b>. I enjoyed building something visual and seeing the
     results immediately. It was my first step into web development and it
     motivated me to keep learning.
-  </>,
-
-  <>
-    <i
-      className="devicon-css3-plain colored"
-      style={{ fontSize: "3rem", margin: "1rem" }}
-    ></i>
-    <br />
-    <b>CSS3</b>: CSS was key to improving the design of the websites I built. I
-    learned the basics alongside HTML to create{" "}
-    <b>visually appealing layouts</b>. Since then, I’ve created many static
-    websites using only HTML + CSS to explore its potential and possibilities.
   </>,
 
   <>
@@ -237,8 +225,8 @@ useEffect(() => {
 
   const left = aboutFixed?.querySelector(".section-left") as HTMLElement | null;
   const right = aboutFixed?.querySelector(".section-right") as HTMLElement | null;
-
-  if (!aboutFixed || !aboutSection || !projectsSection || !left || !right) return;
+  const button = document.querySelector(".view-work-button") as HTMLElement | null;
+  if (!aboutFixed || !aboutSection || !projectsSection || !left || !right || !button) return;
 
   const steps = skillDescriptions.length;
 
@@ -333,7 +321,8 @@ useEffect(() => {
     const cur = currentSlideRef.current;
     left.style.transform = `translateX(${-cur}px)`;
     right.style.transform = `translateX(${cur}px)`;
-
+    button.style.opacity = `${1 - cur / maxSlide}`;
+    button.classList.toggle("animate", cur < maxSlide * 0.5);
     raf = 0;
   };
 
@@ -364,14 +353,7 @@ useEffect(() => {
       <CursorCircle />
       <AnimatedBackground />
       <div className="content">
-        <section className="section section-intro">
-          <p>Hello, I'm <b>Richard</b>.</p>
-          <p>I build modern web applications</p>
-            <button onClick={() => {
-            const projectsSection = document.querySelector('.projects-section');
-            projectsSection?.scrollIntoView({ behavior: 'smooth' });
-            }}>View my work</button>
-        </section>
+        <IntroPage />
             
         <section className="section about-section" style={{flexDirection: 'row', justifyContent: 'start', alignItems: 'start', minHeight: 'auto', height: '300vh'}}>
          <div className="about-placeholder" />
@@ -400,6 +382,7 @@ useEffect(() => {
                    className={`
                     iconBox loadable
                     ${hoveredBox > index ? "dimmed" : "undimmed"}
+                    ${hoveredBox === index ? "hovered" : ""}
                   `}
                   key={index} 
                   style={hoveredBox === index ? { border: '2px solid var(--red-color)' } : {}}
@@ -409,7 +392,12 @@ useEffect(() => {
               ))}
             </div>
           </div>
+
           </div>
+          <button className="view-work-button" onClick={() => {
+          const projectsSection = document.querySelector('.projects-section');
+          projectsSection?.scrollIntoView({ behavior: 'smooth' });
+          }}>View my work</button>
         </section>
         <div className='separator'></div>
         <section className="section projects-section" style={{flexDirection: 'column', justifyContent: 'start', alignItems: 'start', minHeight: 'none !important', margin: '0% 5%'}}>

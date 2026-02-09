@@ -6,7 +6,7 @@ export default function AnimatedBackground() {
   const mousePosition = useMousePosition()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const mousePositionRef = useRef(mousePosition)
-  const starsNumber = Math.round(window.innerWidth / 10)
+  const starsNumber = Math.round(window.innerWidth / 7)
   const stars = useMemo(() => {
     return [...Array(starsNumber)].map((_, i) => {
       const x = Math.random() * window.innerWidth
@@ -50,7 +50,7 @@ export default function AnimatedBackground() {
     let animationId: number
     const linkRadius = 160
 
-    const cursorRadius = 300
+    const cursorRadius = 200
 
     const draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height)
