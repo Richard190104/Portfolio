@@ -13,8 +13,6 @@ export default function IntroPage() {
         });
         const handleScroll = () => {
             const element = document.querySelector('.introText') as HTMLElement | null;
-            const menuSection = document.querySelectorAll('.menuSection') as NodeListOf<HTMLElement>;
-            const introMenu = document.querySelector('.introMenu') as HTMLElement;
             if (!sectionRef.current) return;
 
             const section = sectionRef.current;
