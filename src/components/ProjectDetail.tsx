@@ -147,7 +147,7 @@ export default function ProjectDetail({
                 </button>
                 
               )}
-              <button className="view-code-button" onClick={() => window.open(selectedProject.project, '_blank')}>
+              <button className="view-code-button" onClick={() => window.open(selectedProject.github, '_blank')}>
                     View code
                 </button>
                 

@@ -6,9 +6,10 @@ export default function Contact() {
                 <div className='contact-copy'>
                     <p className='contact-kicker'>Let us build something great</p>
                     <h2>Contact me</h2>
-                    <p className='contact-lede'>If you want to get in touch, feel free to reach out by email or phone! </p>
+                    <p className='contact-lede'>If you want to get in touch, feel free to reach out by email or phone! I'm always excited to collaborate on interesting projects and discuss new opportunities!</p>
+                    
                     <div className='contact-actions'>
-                        <a className='contact-button primary' href='mailto:pukacrichard1@gmail.com'>Email me</a>
+                        <a className='contact-button primary' href='mailto:pukacrichard1@gmail.com'>Email</a>
                         <a className='contact-button primary' href='tel:+421907545190'>Phone</a>
                         <a className='contact-button ghost' href='https://github.com/Richard190104' target='_blank' rel='noreferrer'>Github</a>
                     </div>

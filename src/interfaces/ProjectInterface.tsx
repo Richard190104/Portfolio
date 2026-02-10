@@ -6,4 +6,5 @@ export default interface ProjectInterface {
     technologies: string[];
     images: string[];
     onSelect?: () => void;
+    github?: string;
 }

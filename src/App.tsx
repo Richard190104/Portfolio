@@ -482,6 +482,7 @@ useEffect(() => {
                         setSelectedProject(value);
                         document.querySelector('.navbar')?.classList.add('hidden');
                       }}
+                      github={value.github}
                     />
                   ))}
               </div>

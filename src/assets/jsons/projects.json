@@ -4,8 +4,9 @@
         "description": "A web application for user registration for date of tests.",
         "project": "",
         "moreDetails": ["A registration system for psychology students to sign up for test dates. Features include automated email confirmations, intuitive date selection, and admin management capabilities.", "Includes intelligent date calculation that automatically sets second test dates to 8 days after the first, ensuring regulatory compliance and eliminating manual errors.", "Automated reminder emails sent 3 days before scheduled tests, with admin dashboards for managing registrations, viewing statistics, and handling special cases."],
-        "technologies": ["HTML", "CSS", "JavaScript", "Node.js"],
-        "images": ["images/registration-system.png", "images/registration-system2.png"]
+        "technologies": ["Quasar", "Node.js"],
+        "images": ["images/registration-system.png", "images/registration-system2.png"],
+        "github": "https://github.com/Richard190104/project-quasar"
 
     },
     {
@@ -14,7 +15,8 @@
         "project": "https://richard190104.github.io/Protep-2.0/",
         "moreDetails": ["I developed a professional website for Protep, a company specializing in comprehensive house cleaning services. The website effectively showcases their full range of services, providing an intuitive and engaging user experience across all devices through a fully responsive design approach. The site serves as a digital storefront for the company's offerings and is optimized for both desktop and mobile users.", "The site includes well-organized sections for detailed service descriptions highlighting different cleaning packages, transparent pricing information for various service tiers, and multiple contact information options including phone, email, and contact forms. These sections make it easy for potential clients to learn about the company's services and reach out with inquiries, requests, or booking information.", "I utilized HTML for semantic structure, CSS for advanced styling with animations and responsive layouts, and JavaScript for interactive features and form validation. The final result is a visually appealing, fully functional website that effectively represents Protep's brand identity and helps drive customer engagement and bookings."],
         "technologies": ["HTML", "CSS", "JavaScript"],
-        "images": []
+        "images": [],
+        "github": "https://github.com/Richard190104/Protep-2.0"
     },
     {
         "title": "Cesta k poznaniu website",
@@ -22,7 +24,8 @@
         "project": "https://cestakpoznaniu.sk/",
         "moreDetails": ["I built a comprehensive website for Cesta k poznaniu, an organization dedicated to personal development and spiritual growth. The website serves as a central platform to share detailed information about their programs, events, workshops, and resources while creating an engaging community experience for visitors interested in personal and spiritual transformation.", "The design places strong emphasis on clarity, accessibility, and intuitive navigation patterns, allowing visitors to quickly find relevant information without confusion. The information architecture is carefully organized to guide users through various offerings, event calendars, program descriptions, and resource libraries, making it easy for interested individuals to engage with the organization's services and community activities.", "I developed the website using HTML for semantic markup and proper content structure, CSS for sophisticated styling with responsive design patterns that work seamlessly across devices, and JavaScript for interactive features and enhanced user engagement. The result is a professional, accessible, and user-friendly experience that effectively communicates the organization's mission and values."],
         "technologies": ["HTML", "CSS", "JavaScript"],
-        "images": []
+        "images": [],
+        "github": "https://github.com/Richard190104/cesta_k_poznaniu_website"
 
     },
     {
@@ -31,7 +34,8 @@
         "project": "https://richard190104.github.io/chess-website/",
         "moreDetails": ["I built an engaging online 3D chess game that allows players to compete against a computer opponent with adjustable difficulty levels. The game features a fully interactive 3D board with realistic piece movements, intuitive click-based piece selection, and smooth camera controls. The 3D visualization provides a modern twist on the classic game, making chess more visually appealing and immersive compared to traditional 2D chess boards.", "The game includes a difficulty slider allowing players to adjust the AI opponent's strength from beginner to advanced levels, making it suitable for both new learners and experienced chess players. The 3D rendering was accomplished using Three.js, a powerful JavaScript 3D library that handles all graphics rendering, camera management, and interactive visualization.", "This project was originally developed as part of an unfinished website dedicated to custom chess pieces and set designs, which was ultimately scrapped. Rather than let the work go to waste, I decided to keep the 3D chess game as a standalone project that demonstrates my skills in 3D graphics programming and game development logic."],
         "technologies": ["Three.js"],
-        "images": []
+        "images": [],
+        "github": "https://github.com/Richard190104/chess-website"
     },
     {
         "title": "Task tracking app",
@@ -39,15 +43,17 @@
         "project": "",
         "moreDetails": ["One of my recent school projects was developing a comprehensive mobile task tracking application designed specifically for team collaboration. The app enables team members to create, assign, and monitor tasks in real-time, providing a centralized platform for coordinating work across team members. Features include task creation with descriptions and due dates, assignment to specific team members, progress tracking, priority levels, and team communication capabilities.", "The application was built using React Native to provide a cross-platform mobile experience that works on both iOS and Android devices. The backend is powered by Python, which handles data management, user authentication, task storage, and real-time synchronization between team members. The combination of React Native and Python creates a robust, scalable solution that enhances team collaboration and significantly improves overall team productivity and accountability."],
         "technologies": ["React Native", "Python"],
-        "images": []
+        "images": [],
+        "github": "https://github.com/Richard190104/MyApp"
     },
     {
         "title": "Chatting application",
         "description": "Client to client chatting application based on updated UDP protocol.",
-        "project": "https://example.com/project-five",
+        "project": "",
         "moreDetails": ["I developed an innovative client-to-client chatting application using an enhanced UDP protocol to combine the speed advantages of UDP with the reliability guarantees typically associated with TCP. This hybrid approach ensures reliable message delivery while maintaining the low-latency characteristics of UDP, creating an optimal communication protocol for real-time chat applications.", "The application implements several advanced networking features including message acknowledgment systems to confirm successful message delivery, automatic retransmission of lost packets to guarantee no messages are lost, keep-alive messages to maintain connection stability, and a three-way handshake mechanism to establish secure connections between clients. These features create a robust communication framework that handles network issues gracefully.", "The frontend user interface was built with React and styled with CSS and JavaScript, providing a modern and responsive chat experience. The combination of the custom UDP protocol implementation with React's dynamic UI capabilities creates a high-performance, reliable messaging application that demonstrates deep understanding of network protocols and frontend development."],
         "technologies": ["React", "CSS", "JavaScript"],
-        "images": ["chatting-app1.png", "chatting-app2.png"]
+        "images": [],
+        "github": "https://github.com/Richard190104/Own-protocol"
     },
     {
         "title": "Personal Portfolio",
@@ -55,7 +61,8 @@
         "project": "",
         "moreDetails": ["I created a comprehensive personal portfolio website to showcase my diverse projects, technical skills, and professional experience. The website features a clean and modern design with carefully curated sections for detailed project descriptions, technologies used, and multiple contact information options. The portfolio serves as a digital representation of my professional identity and capabilities, designed to impress potential employers and clients with polished presentation and intuitive navigation.", "The portfolio is built using React, a powerful JavaScript library that enables a dynamic and highly responsive user experience. The architecture utilizes smooth scrolling animations, custom scroll-based triggers for element animations, and interactive cursor effects to create an engaging experience. Each project is presented with descriptions, technologies used, links to live demos or repositories, and detailed insights into my development process.", "Technical highlights include custom scroll animations using Lenis for smooth scrolling, intersection observer API for lazy loading animations, responsive design that works seamlessly across all devices, and performance optimizations to ensure fast loading times. The portfolio effectively demonstrates not only the projects I've built, but also my skills in frontend development, UI/UX design, and creating engaging user experiences."],
         "technologies": ["React", "CSS", "JavaScript"],
-        "images": []
+        "images": [],
+        "github": "https://github.com/Richard190104/Portfolio"
     }
 
 ]

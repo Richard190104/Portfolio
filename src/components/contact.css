@@ -221,5 +221,10 @@
     .contact-copy *{
         width: 90%;
     }
-   
+    .contact-lede{
+        width: 90% !important;
+    }
+   .contact-card-content p{
+        width: 90% !important;
+   }
 }

@@ -77,7 +77,7 @@
 }
 
 .project-box:hover {
-    border-color: rgba(255, 0, 0, 0.377);
+    border-color: rgb(172, 172, 172);
 }
 
 .project-box:hover h3{
