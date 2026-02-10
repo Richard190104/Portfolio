@@ -17,7 +17,7 @@ export default function Contact() {
                 <div className='contact-card'>
                     <div className='contact-card-content'>
                         <h3>Fast response</h3>
-                        <p>Whether you have a quick question or a full project, I will help you shape a clear plan and timeline.</p>
+                        <p>Whether you have a quick question or a full project:</p>
                         <div className='contact-info'>
                             <span className='contact-chip'>pukacrichard1@gmail.com</span>
                             <span className='contact-chip'>+421 907 545 190</span>
