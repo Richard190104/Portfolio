@@ -4,8 +4,42 @@ import './CursorCircle.css';
 const CursorCircle: React.FC = () => {
   const circleRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const hasSentVisitStart = useRef(false);
+  const hasSeenVisible = useRef(false);
 
   useEffect(() => {
+
+    function sendVisitStart() {
+        fetch('https://nodejs-serverless-function-express-wheat-kappa-81.vercel.app/api/visit-start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            startTime: new Date().toISOString(),
+            userAgent: "",
+            referrer: "",
+            path: window.location.pathname
+          }),
+          keepalive: true,
+        });
+      }
+
+      if (!hasSentVisitStart.current) {
+        hasSentVisitStart.current = true;
+        sendVisitStart();
+      }
+
+      hasSeenVisible.current = document.visibilityState === 'visible';
+
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          hasSeenVisible.current = true;
+          return;
+        }
+
+      };
+
+      window.addEventListener('visibilitychange', handleVisibilityChange);
+
     const circle = circleRef.current;
     if (!circle) return;
 
@@ -57,6 +91,7 @@ const CursorCircle: React.FC = () => {
     rafId = requestAnimationFrame(animate);
 
     return () => {
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseenter', handleMouseEnter, true);
       document.removeEventListener('mouseleave', handleMouseLeave, true);
